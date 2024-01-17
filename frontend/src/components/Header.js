@@ -1,8 +1,18 @@
 import React from 'react'
-import { Container, Navbar, Nav } from 'react-bootstrap'
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCartItems } from '../actions/cartActions';
+import { logout } from '../actions/userActions';
 
 function Header() {
+
+    const dispatch = useDispatch();
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
+
+    const navDropdownUserTitle = (userInfo && userInfo.name) || (userInfo && userInfo.email);
+
     return (
 
         <header>
@@ -17,17 +27,34 @@ function Header() {
                             <LinkContainer to="/cart">
                                 <Nav.Link><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/login">
-                                <Nav.Link ><i className='fas fa-user'></i>Login</Nav.Link>
-                            </LinkContainer>
+                            {userInfo ? (
+                                <NavDropdown title={navDropdownUserTitle} id='username'>
+                                    <LinkContainer to='/profile'>
+                                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <NavDropdown.Item onClick={onClickLogout()}>
+                                        Logout
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            ) : (
+                                <LinkContainer to="/login">
+                                    <Nav.Link ><i className='fas fa-user'></i>Login</Nav.Link>
+                                </LinkContainer>)
+                            }
                         </Nav>
                     </Navbar.Collapse>
-
                 </Container>
             </Navbar>
         </header>
 
     );
+
+    function onClickLogout() {
+        return () => {
+            dispatch(logout());
+            dispatch(clearCartItems());
+        };
+    }
 }
 
 export default Header

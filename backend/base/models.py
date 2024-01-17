@@ -19,6 +19,12 @@ class Product(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
 
     def __str__(self) -> str:
+        """
+        Returns a string representation of the object.
+
+        :return: The string representation of the object.
+        :rtype: str
+        """
         return str(self.name)
 
 
