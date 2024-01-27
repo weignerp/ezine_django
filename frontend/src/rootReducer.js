@@ -6,6 +6,7 @@ import { productListReducer } from './features/loaders/productListReducer'
 import { productDetailReducer } from './features/loaders/productDetailReducer'
 import cartReducer from './features/loaders/cartReducers'
 import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from './features/loaders/userReducer'
+import { orderCreateReducer, orderDetailsReducer } from './features/loaders/orderReducer'
 
 const rootReducer = combineReducers({
     // Define a top-level state field named `todos`, handled by `todosReducer`
@@ -17,7 +18,9 @@ const rootReducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
-    userUpdateProfile: userUpdateProfileReducer
+    userUpdateProfile: userUpdateProfileReducer,
+    orderCreate: orderCreateReducer,
+    orderDetails: orderDetailsReducer
 })
 
 export default rootReducer

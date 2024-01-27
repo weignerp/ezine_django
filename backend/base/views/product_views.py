@@ -4,7 +4,7 @@ from rest_framework.response import Response
 # from icecream import ic
 
 from base.models import Product
-from base.serializers import ProductSerializer
+from base.serializers import ProductSerializer, OrderSerializer
 
 
 @api_view(["GET"])

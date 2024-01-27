@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Container, Navbar, Nav, NavDropdown, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCartItems } from '../actions/cartActions';
@@ -9,6 +9,8 @@ function Header() {
 
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin);
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
     const { userInfo } = userLogin;
 
     const navDropdownUserTitle = (userInfo && userInfo.name) || (userInfo && userInfo.email);
@@ -25,7 +27,17 @@ function Header() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <LinkContainer to="/cart">
-                                <Nav.Link><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
+                                <Nav.Link>
+                                    <i className='fas fa-shopping-cart'></i>Cart
+                                    {cartItems.length > 0 && (
+                                        <>
+                                            <Badge bg="primary" pill>
+                                                {cartItems.length}
+                                            </Badge>
+                                            <span className="visually-hidden">items in cart</span>
+                                        </>
+                                    )}
+                                </Nav.Link>
                             </LinkContainer>
                             {userInfo ? (
                                 <NavDropdown title={navDropdownUserTitle} id='username'>

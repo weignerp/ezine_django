@@ -17,7 +17,7 @@ function ShippingScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShippingAddress({ ...shippingForm }));
-    console.log(shippingForm);
+    //console.log(shippingForm);
     navigate("/payment");
   };
 

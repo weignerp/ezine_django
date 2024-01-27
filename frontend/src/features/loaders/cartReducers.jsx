@@ -9,6 +9,7 @@ import {
 const initialState = {
   cartItems: [],
   shippingAddress: {},
+  paymentMethod: "",
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -45,7 +46,7 @@ const cartReducer = (state = initialState, action) => {
     case CART_SAVE_PAYMENT_METHOD:
       return {
         ...state,
-        paymantMethod: action.payload,
+        paymentMethod: action.payload,
       };
 
     default:

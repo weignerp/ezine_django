@@ -31,11 +31,10 @@ export const removeFromCart = (id) => (dispatch, getState) => {
     type: CART_REMOVE_ITEM,
     payload: id,
   });
-
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-export const clearCartItems = () => (dispatch, getState) => {
+export const clearCartItems = () => (dispatch) => {
   localStorage.removeItem("cartItems");
   dispatch({
     type: CART_CLEAR_ITEMS,
@@ -56,5 +55,5 @@ export const savePaymentMethod = (data) => (dispatch, getState) => {
     type: CART_SAVE_PAYMENT_METHOD,
     payload: data,
   });
-  localStorage.setItem("paymentMethod", JSON.stringify(data));
+  localStorage.setItem("paymentMethod", data);
 };

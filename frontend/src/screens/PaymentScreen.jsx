@@ -15,9 +15,9 @@ function PaymentScreen() {
     { label: "Cash on Delivery", id: "CashOnDelivery", value: "CashOnDelivery" },
   ];
   const cart = useSelector((state) => state.cart);
-  const { paymantMethod, shippingAddress } = cart;
+  const { paymentMethod, shippingAddress } = cart;
 
-  const [payment, setPaymentMethod] = useState(paymantMethod);
+  const [payment, setPaymentMethod] = useState(paymentMethod);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function PaymentScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(payment));
-    console.log(payment);
+    // console.log(payment);
     navigate("/placeorder");
   };
 

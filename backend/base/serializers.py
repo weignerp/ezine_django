@@ -17,9 +17,34 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    orderItems = serializers.SerializerMethodField(read_only=True)
+    shippingAddress = serializers.SerializerMethodField(read_only=True)
+    user = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Order
         fields = "__all__"
+
+    def get_orderItems(self, object):
+        orderItems = object.orderitem_set.all()
+        serializer = OrderItemSerializer(orderItems, many=True)
+        return serializer.data
+
+    def get_shippingAddress(self, object):
+        try:
+            shipping_address = ShippingAddressSerializer(
+                object.shippingaddress, many=False
+            ).data
+        except ValueError:
+            return None
+        return shipping_address
+
+    def get_user(self, object):
+        try:
+            user = UserSerializer(object.user, many=False).data
+        except ValueError:
+            return None
+        return user
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
